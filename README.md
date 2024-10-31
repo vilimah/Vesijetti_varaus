@@ -8,4 +8,5 @@ Käyttäjä voi luoda arvostelun, jonka hän voi myös itse poistaa ja hän voi 
 Burger-valikko josta löytyy yhteystiedot, kalenteri ja arvostelut.
 Ylläpitäjä pystyy muokkaamaan ja rajoittamaan tuotteiden saatavuuksia.
 Ylläpitäjä pystyy tarvittaessa poistamaan arvosteluja.
+Ylläpitäjä näkee käyttäjän tekemät varaukset.
 
