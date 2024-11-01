@@ -1,4 +1,4 @@
-# Saunalautta-varausj-rjestelm-
+# Vesijetti varausjärjestelmä
 Tsoha projektityö
 
 Tässä projektissa olisi tarkoitus luoda web-sovellus, jolla pystyy varaamaan saunalautan + muita palveluita käyttöönsä.
