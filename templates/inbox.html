@@ -1,0 +1,11 @@
+Palautteita: {{ count }} | <a href="/message">Lisää palaute</a> | <a href="/myquestions">Omat palautteet</a> 
+| <a href="/">Takaisin etusivulle</a>
+<hr>
+{% for message in messages %}
+<i>Palaute:</i> {{ message[0] }}
+<p>
+<i>Lähettäjä:</i> {{ message[1] }}
+<p>
+<i>Aika:</i> {{ message[2].strftime("%Y-%m-%d %H:%M:%S") }}
+<hr>
+{% endfor %}

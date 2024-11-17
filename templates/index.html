@@ -1,0 +1,22 @@
+<title>Helsingin vesijetti</title> 
+<h1>Helsingin vesijetti</h1>
+<h3>Vuokraa upouudet vesijetit Helsingissä.</h3>
+<i>Koe vauhdinhuuma, kesä, saaristo ja meri! Se laadukkaampi vesiurheiluvuokraamo.</i>
+<p>
+<a href="/booking">Varaa tästä!</a>
+<p>
+<a href="/inbox">Palautteet</a>
+<p>
+{% if session.user_id %}
+Olet kirjautunut käyttäjälle {{session.username}}
+<p>
+<a href="/logout">Kirjaudu ulos</a>
+{% else %}
+<a href="/login">Kirjaudu sisään</a>
+{% endif %}
+<h3>Saapumisohjeet paikanpäälle</h3>
+<div>
+    <figure>
+        <img src="/static/vesijettikuva.jpg" height="300" width="500" alt="kuva kartasta">
+    </figure>
+</div>
