@@ -10,3 +10,13 @@ Ylläpitäjä pystyy muokkaamaan ja rajoittamaan tuotteiden saatavuuksia.
 Ylläpitäjä pystyy tarvittaessa poistamaan arvosteluja.
 Ylläpitäjä näkee käyttäjän tekemät varaukset.
 
+Välipalautus 2:
+Sovelluksen tämän hetkinen tilanne:
+- Sovellukseen pystyy luomaan tunnukset ja niillä pystyy kirjautumaan sisään ja ulos
+- Kirjautunut käyttäjä voi lisätä ja poistaa arvostelun
+
+Tehtävää:
+- Valikon tekeminen
+- Tuotteiden lisääminen
+- Admin oikeuksien luonti
+- Varausjärjestelmä
