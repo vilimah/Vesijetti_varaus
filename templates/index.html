@@ -10,9 +10,10 @@
 {% if session.user_id %}
 Olet kirjautunut käyttäjälle {{session.username}}
 <p>
+<a href="/profile/{{ session.user_id }}">Profiiliin</a>
 <a href="/logout">Kirjaudu ulos</a>
 {% else %}
-<a href="/login">Kirjaudu sisään</a>
+<a href="/login">Kirjaudu sisään</a> tai <a href="/register">Rekisteröidy</a>
 {% endif %}
 <h3>Saapumisohjeet paikanpäälle</h3>
 <div>
@@ -20,3 +21,5 @@ Olet kirjautunut käyttäjälle {{session.username}}
         <img src="/static/vesijettikuva.jpg" height="300" width="500" alt="kuva kartasta">
     </figure>
 </div>
+
+

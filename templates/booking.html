@@ -1,6 +1,23 @@
 Päivämäärä: <input type="date" name="date"> <br>
 Kellonaika: <input type="time" name="time">
 
-<h2>Varaa upea kesäpäivä soittamalla, whatsapissa tai sähköpostilla!</h2>
-<h1>040 0000 000</h1>
+<h2>Tuotteet:</h2>
+
+<hr>
+{% for product in products %}
+    <i>Tuote:</i> {{ product[1] }}
+    <p>
+    <i>Kuvaus:</i> {{ product[2] }}
+    <p>
+    <i>Hinta:</i> {{ product[3] }} €
+    <p>
+    <i>Päivämäärä:</i> {{ product[4] }}
+    <p>
+    <i>Aika:</i> {{ product[5] }}
+    <form action="/book" method="post">
+        <input type="hidden" name="prod_id" value="{{ product[0] }}">
+        <input type="submit" value="Varaa">
+    </form>
+    <hr>
+{% endfor %}
 <a href="/">Takaisin etusivulle</a>
