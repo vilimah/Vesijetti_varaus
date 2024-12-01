@@ -26,6 +26,7 @@ Sovelluksen tämän hetkinen tilanne:
 - Sovellukseen pystyy luomaan tunnukset ja niillä pystyy kirjautumaan sisään ja ulos
 - Kirjautunut käyttäjä voi lisätä ja poistaa arvostelun
 - Kirjautunut käyttäjä voi varata tuotteen ja varauksen jälkeen muut käyttäjät ei enää näe tuotetta. Käyttäjä näkee profiilistaan omat varaukset
+- Käyttäjä voi vaihtaa oman salasanansa
 - Admin sivut ovat tällä hetkellä toiminnassa /admins sivulla jos lisää tietokantaan userRoles käyttäjälle arvon 2.
 - Admin näkee varaukset, käyttäjät ja tuotteet ja voi hallinnoida näitä
 
