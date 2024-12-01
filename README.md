@@ -27,11 +27,12 @@ Sovelluksen tämän hetkinen tilanne:
 - Kirjautunut käyttäjä voi lisätä ja poistaa arvostelun
 - Kirjautunut käyttäjä voi varata tuotteen ja varauksen jälkeen muut käyttäjät ei enää näe tuotetta. Käyttäjä näkee profiilistaan omat varaukset
 - Admin sivut ovat tällä hetkellä toiminnassa /admins sivulla jos lisää tietokantaan userRoles käyttäjälle arvon 2.
-- Admin näkee varaukset, käyttäjät ja tuotteet ja voi hallinnoida näitä kaikkia eli lisätä tai poistaa
+- Admin näkee varaukset, käyttäjät ja tuotteet ja voi hallinnoida näitä
 
 Tehtävää:
 - Visuaalinen puoli kuntoon
 - Info kentän luonti johon admin voi lisätä tietoja
+- Adminin tulisi vielä pystyä lisäämään tuotteet itse admin sivulta
 - Bugi checkkaus/korjaus
 - Valikon luonti
 
