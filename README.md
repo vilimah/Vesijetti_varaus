@@ -5,7 +5,7 @@ Tässä projektissa olisi tarkoitus luoda web-sovellus, jolla pystyy varaamaan v
 Käyttäjä voi kirjautua sisään ja ulos ja luoda tunnukset sivulle.
 Käyttäjä voi nähdä vapaana olevat vesijetit, niiden hinnat ja varata sellaisen.
 Käyttäjä voi luoda arvostelun, jonka hän voi myös itse poistaa ja hän voi lukea muiden arvosteluja.
-Burger-valikko josta löytyy yhteystiedot, kalenteri ja arvostelut.
+Valikko josta löytyy yhteystiedot, profiili ja arvostelut.
 Ylläpitäjä pystyy muokkaamaan ja rajoittamaan tuotteiden saatavuuksia.
 Ylläpitäjä pystyy tarvittaessa poistamaan arvosteluja.
 Ylläpitäjä näkee käyttäjän tekemät varaukset.
