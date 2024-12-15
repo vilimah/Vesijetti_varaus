@@ -71,6 +71,7 @@ def get_products():
     result = db.session.execute(sql)
     return result.fetchall()
 
+# tekee varauksen
 def book(prod_id):
     try:
         id_user = session.get("user_id", 0)
@@ -83,12 +84,30 @@ def book(prod_id):
     except:
         return False
 
+# näyttää varaukset
 def my_reservations():
     id_user = user_id()
-    if user_id == 0:
+    if id_user == 0:
         return False
-    sql = text("SELECT P.title, P.description, P.price, P.date, P.time FROM products P, reservations R WHERE R.prod_id = P.id AND R.user_id = :user_id")
+    sql = text("SELECT P.title, P.description, P.price, P.date, P.time, R.prod_id FROM products P, reservations R WHERE R.prod_id = P.id AND R.user_id = :user_id")
     result = db.session.execute(sql, {"user_id":id_user})
     return result.fetchall()
 
+# peruuta varaus
+def cancel(prod_id):
+    try:
+        id_user = session.get("user_id", 0)
+        sql = text("DELETE FROM reservations WHERE prod_id = :prod_id AND user_id = :user_id")
+        sql_show = text("UPDATE products SET visible = True WHERE id = :prod_id")
+        db.session.execute(sql, {"prod_id":prod_id, "user_id":id_user})
+        db.session.execute(sql_show, {"prod_id":prod_id})
+        db.session.commit()
+        return True
+    except:
+        return False
 
+# infon näkyvyys
+def all_info():
+    sql = text("SELECT title, description, created FROM info ORDER BY created")
+    result = db.session.execute(sql)
+    return result.fetchall()
