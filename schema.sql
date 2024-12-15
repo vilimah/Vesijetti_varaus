@@ -55,14 +55,19 @@ CREATE TABLE info (
     created TIMESTAMP
 );
 
-Test:1
+INSERT INTO info (title, description, created) VALUES ('Tänä viikonloppuna huippualennus!', '2 vesijetitä 99€', 'NOW()');
+
 INSERT INTO products (title, description, price, date, time, visible) VALUES (
     'Vesijetti', '2 tuntia vesijeteillä ajelua, tankkaaminen kuuluu hintaan', '149', '30.11.2024','18.30', 'TRUE'
 );
-Test:2
+
 INSERT INTO products (title, description, price, date, time, visible) VALUES (
     'Vesijetti', '2 tuntia vesijeteillä ajelua, tankkaaminen kuuluu hintaan', '149', '31.11.2024', '14.30', 'TRUE'
 );
 
-Jos luo käyttäjän niin tällä syötteellä saa omalle käyttäjälle admin oikeudet jota voi kokeilla.
 INSERT INTO userRoles (user_id, role_id) VALUES ('1', '2');
+
+INSERT INTO products (title, description, price, date, time, visible) VALUES (
+    'Saunalautta', '2 tuntia saunalla, 2 vesijettiä kuuluu hintaan', '249', '28.10.2024', '14.00', 'TRUE'
+);
+
