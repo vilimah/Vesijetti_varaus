@@ -8,3 +8,6 @@ app.secret_key = getenv("SECRET_KEY")
 
 import routes
 
+
+# vilimahonen, vili1234 tunnukset
+# maija, maikki1
