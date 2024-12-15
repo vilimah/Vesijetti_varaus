@@ -1,28 +1,53 @@
 <title>Admin päävalikko</title> 
 
 <h1>Admin päävalikko</h1>
+<a href="/"> Etusivulle</a>
 
-<h2>Käyttäjät:</h2>
+<h2>Kaikki käyttäjät:</h2>
 <hr>
 {% for user in users %}
 <i>id:</i> {{ user[0] }}
 <p>
 <i>käyttäjänimi:</i> {{ user[1] }}
+
 {% if session.user_id != user[0] %}
 <form action="/del/user" method="post">
     <input type="hidden" name="user_id" value="{{ user[0] }}">
     <button type="submit">Poista käyttäjä</button>
 </form>
-{% endif %}
+
 <form action="/add/admin" method="post">
     <input type="hidden" name="user_id" value="{{ user[0] }}">
     <button type="submit">Lisää pääkäyttäjäksi</button>
 </form>
+{% endif %}
 <hr>
 {% endfor %}
 
-<h2>Tuotteet:</h2>
+<h2>Adminit:</h2>
 
+<hr>
+{% for admin in admins %}
+<i>Käyttäjä:</i> {{ admin[0] }}
+<p>
+<i>Oikeus:</i> {{ admin[1] }}
+<p>
+    {% if session.user_id != admin[2] %}
+    <form action="/del/admin" method="post">
+        <input type="hidden" name="given_user" value="{{ admin[2] }}">
+        <button type="submit">Poista pääkäyttäjä rooli</button>
+    </form>
+    {% endif %}
+<hr>
+{% endfor %}
+
+<a href="/new/product"><h2>Lisää tuote</h2></a>
+
+
+<h2>Varaamattomat tuotteet:</h2>
+{% if not products %}
+Ei varaamattomia tuotteita!
+{% endif %}
 <hr>
 {% for product in products %}
 <i>Tuote:</i> {{ product[1] }}
@@ -34,25 +59,70 @@
 <i>Päivämäärä:</i> {{ product[4] }}
 <p>
 <i>Aika:</i> {{ product[5] }}
-<hr>
-{% endfor %}
-
-<h2>Adminit:</h2>
-
-<hr>
-{% for admin in admins %}
-<i>Käyttäjä:</i> {{ admin[0] }}
 <p>
-<i>Oikeus:</i> {{ admin[1] }}
+    <form action="/del/product" method="post">
+        <input type="hidden" name="prod_id" value="{{ product[0] }}">
+        <button type="submit">Poista tuote</button>
+    </form>
 <hr>
 {% endfor %}
 
 <h2>Varaukset:</h2>
+{% if not reservations %}
+Ei varauksia!
+{% endif %}
+
 {% for reservation in reservations %}
-<i>Käyttäjä id:</i> {{ reservation[1] }}
+<i>Käyttäjä:</i> {{ reservation[0] }}
 <p>
-<i>Tuote id:</i> {{ reservation[2] }}
+<i>Tuote:</i> {{ reservation[1] }}
 <p>
-<i>Aika:</i> {{ reservation[3] }}
+<i>Kuvaus:</i> {{ reservation[2] }}
+<p>
+<i>Hinta:</i> {{ reservation[3] }} €
+<p>
+<i>Päivämäärä:</i> {{ reservation[4] }}
+<p>
+<i>Kellonaika:</i> {{ reservation[5] }}
+<p>
+<i>Varattu:</i> {{ reservation[6].strftime("%Y-%m-%d %H:%M:%S") }}
+<hr>
+{% endfor %}
+
+<a href="/new/info"><h2>Lisää infokenttään</h2></a>
+
+<h2>Infoa:</h2>
+{% if not info %}
+Ei infoa!
+{% endif %}
+{% for i in info %}
+<i>Otsikko:</i> {{ i[1] }}
+<p>
+<i>Kuvaus:</i> {{ i[2] }}
+<p>
+<i>Luotu:</i> {{ i[3].strftime("%Y-%m-%d %H:%M:%S") }}
+<p>
+<form action="/del/info" method="post">
+    <input type="hidden" name="info_id" value="{{ i[0] }}">
+    <button type="submit">Poista info</button>
+</form>
+    
+<hr>
+{% endfor %}
+
+<h2>Palautteet:</h2>
+{% if not messages %}
+Ei palautteita!
+{% endif %}
+{% for message in messages %}
+<i>Palaute:</i> {{ message[1] }}
+<p>
+<i>Lähettäjä:</i> {{ message[2] }}
+<p>
+<i>Lähetetty:</i> {{ message[3].strftime("%Y-%m-%d %H:%M:%S") }}
+<form action="/del/review" method="post">
+    <input type="hidden" name="review_id" value="{{ message[0] }}">
+    <button type="submit">Poista palaute</button>
+</form>
 <hr>
 {% endfor %}

@@ -1,7 +1,13 @@
-Päivämäärä: <input type="date" name="date"> <br>
-Kellonaika: <input type="time" name="time">
+<a href="/">Takaisin etusivulle</a>
+{% if session.user_id %}
+<p>
+<a href="/profile/{{ session.user_id }}">Profiiliin</a>
+{% endif %}
 
 <h2>Tuotteet:</h2>
+{% if not session.user_id %}
+<a href="/login">Kirjaudu sisään</a> varataksesi tuote!
+{% endif %}
 
 <hr>
 {% for product in products %}
@@ -14,10 +20,19 @@ Kellonaika: <input type="time" name="time">
     <i>Päivämäärä:</i> {{ product[4] }}
     <p>
     <i>Aika:</i> {{ product[5] }}
+    {% if session.user_id %}
     <form action="/book" method="post">
         <input type="hidden" name="prod_id" value="{{ product[0] }}">
         <input type="submit" value="Varaa">
     </form>
+    {% endif %}
     <hr>
 {% endfor %}
-<a href="/">Takaisin etusivulle</a>
+
+<h3>Saapumisohjeet paikanpäälle</h3>
+<div>
+    <figure>
+        <img src="/static/vesijettikuva.jpg" height="300" width="500" alt="kuva kartasta">
+    </figure>
+</div>
+
