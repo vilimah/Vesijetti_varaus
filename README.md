@@ -1,41 +1,8 @@
 # Vesijetti varausjärjestelmä
 Tsoha projektityö
 
-Tässä projektissa olisi tarkoitus luoda web-sovellus, jolla pystyy varaamaan vesijetin + muita siihen liittyviä palveluita käyttöönsä.
-Käyttäjä voi kirjautua sisään ja ulos ja luoda tunnukset sivulle.
-Käyttäjä voi nähdä vapaana olevat vesijetit, niiden hinnat ja varata sellaisen.
-Käyttäjä voi luoda arvostelun, jonka hän voi myös itse poistaa ja hän voi lukea muiden arvosteluja.
-Valikko josta löytyy yhteystiedot, profiili ja arvostelut.
-Ylläpitäjä pystyy muokkaamaan ja rajoittamaan tuotteiden saatavuuksia.
-Ylläpitäjä pystyy tarvittaessa poistamaan arvosteluja.
-Ylläpitäjä näkee käyttäjän tekemät varaukset.
+Tässä projektissa on toteutettu vesijetti varausjärjestelmä -websovellus. Websovelluksessa voi luoda omat tunnukset ja niillä voi kirjautua sisään. Käyttäjällä on oikeutena vaihtaa salasana, varata tuotteita ja nähdä omat varaukset omasta profiilista sekä peruuttaa varaus, luoda palaute ja poistaa oma palaute tarvittaessa. Kirjautumattomille käyttäjille on myös nähtävillä tuotteet sekä palautteet, mutta jos haluaa varata tai luoda palautteen niin käyttäjän tulee olla kirjautunut. Jos haluaa admin-oikeudet toimimaan niin tulee sijoittaa tietokantaan userRoles käyttäjä id ja rooli id ja siitä eteenpäin admin-oikeudet omaava voi lisätä kenelle tahansa käyttäjälle admin-oikeudet. Admin näkee käyttäjän tekemät varaukset. Admin voi lisätä ja poistaa tuotteita. Admin voi poistaa käyttäjän ja tehdä käyttäjästä admin-käyttäjän. Admin voi poistaa kenen tahansa palautteen. Admin voi lisätä ja poistaa infoa, joka näkyy kaikille vierailijoille etusivulla.
 
-Välipalautus 2:
-Sovelluksen tämän hetkinen tilanne:
-- Sovellukseen pystyy luomaan tunnukset ja niillä pystyy kirjautumaan sisään ja ulos
-- Kirjautunut käyttäjä voi lisätä ja poistaa arvostelun
-
-Tehtävää:
-- Valikon tekeminen
-- Tuotteiden lisääminen
-- Admin oikeuksien luonti
-- Varausjärjestelmä
-
-Välipalautus 3:
-Sovelluksen tämän hetkinen tilanne:
-- Sovellukseen pystyy luomaan tunnukset ja niillä pystyy kirjautumaan sisään ja ulos
-- Kirjautunut käyttäjä voi lisätä ja poistaa arvostelun
-- Kirjautunut käyttäjä voi varata tuotteen ja varauksen jälkeen muut käyttäjät ei enää näe tuotetta. Käyttäjä näkee profiilistaan omat varaukset
-- Käyttäjä voi vaihtaa oman salasanansa
-- Admin sivut ovat tällä hetkellä toiminnassa /admins sivulla jos lisää tietokantaan userRoles käyttäjälle arvon 2.
-- Admin näkee varaukset, käyttäjät ja tuotteet ja voi hallinnoida näitä
-
-Tehtävää:
-- Visuaalinen puoli kuntoon
-- Info kentän luonti johon admin voi lisätä tietoja
-- Adminin tulisi vielä pystyä lisäämään tuotteet itse admin sivulta
-- Bugi checkkaus/korjaus
-- Valikon luonti
 
 Tätä sovellusta ei toistaiseksi pysty testaamaan fly.io:ssa, mutta tässä on seuraavaksi ohjeet jolla sovellus pitäisi olla testattavissa.
 
