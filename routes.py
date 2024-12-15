@@ -5,7 +5,9 @@ import users, messages, admin
 # etusivu
 @app.route("/")
 def index():
-    return render_template("index.html")
+    admin_role = admin.check_role()
+    list_info = users.all_info()
+    return render_template("index.html", role=admin_role, info=list_info)
 
 # varaaminen
 @app.route("/booking")
@@ -51,7 +53,7 @@ def delete():
     if messages.delete_own(message_id):
         return redirect("/myquestions")
     else:
-        render_template("error.html", message="Palautteen poistaminen epäonnistui")
+        return render_template("error.html", message="Palautteen poistaminen epäonnistui")
 
 # kirjautuminen
 @app.route("/login", methods=["GET", "POST"])
@@ -63,7 +65,6 @@ def login():
         password = request.form["password"]
         if users.login(username, password):
             session["username"] = username
-            #print(users.user_id()) # testi
             return redirect("/")
         else:
             return render_template("error.html", message="Väärä tunnus tai salasana")
@@ -95,11 +96,12 @@ def register():
 def profile(user_id):
     if "user_id" not in session:
         return render_template("error.html", message="Kirjaudu nähdäksesi profiili!")
+    admin_role = admin.check_role()
     
     current_user_id = session["user_id"]
     my_res = users.my_reservations()
     if current_user_id == user_id:
-        return render_template("profile.html", reservations=my_res)
+        return render_template("profile.html", reservations=my_res, role=admin_role)
     
     return render_template("error.html", message="Ei oikeuksia nähdä sivua!")
 
@@ -137,11 +139,19 @@ def admin_page():
         return render_template("error.html", message="Ei oikeuksia nähdä sivua!")
     
     list_users = admin.see_users()
-    list_products = users.get_products()
+    list_products = admin.see_products()
     list_admins = admin.see_admins()
     list_reservations = admin.see_reservations()
-    return render_template("admins.html", users=list_users, products=list_products, admins=list_admins, reservations=list_reservations)
+    list_info = admin.see_info()
+    list_messages = admin.see_inbox()
 
+    return render_template("admins.html", users=list_users,
+                                          products=list_products,
+                                          admins=list_admins, 
+                                          reservations=list_reservations, 
+                                          info=list_info,
+                                          messages=list_messages)
+                                          
 # admin: käyttäjän poistaminen
 @app.route("/del/user", methods=["POST"])
 def delete_user():
@@ -166,6 +176,7 @@ def add_admin():
     else:
         return render_template("error.html", message="Adminin lisääminen epäonnistui")
 
+# tuotteen varaaminen
 @app.route("/book", methods=["POST"])
 def reserve():
     user_id = users.user_id()
@@ -176,3 +187,118 @@ def reserve():
         return redirect(f"/profile/{user_id}")
     else:
         return render_template("error.html", message="Tuotteen varaaminen epäonnistui")
+    
+# tuotteen lisääminen (admin) 
+@app.route("/new/product")
+def new_prod():
+    if "user_id" not in session:
+        return render_template("error.html", message="Kirjaudu ensin sisään!")
+    
+    if not admin.check_role():
+        return render_template("error.html", message="Ei oikeuksia nähdä sivua!")
+    
+    return render_template("product.html")
+
+# lisää tuotteen (admin)
+@app.route("/add/product", methods=["POST"])
+def add_prod():
+    if "user_id" not in session:
+        return render_template("error.html", message="Kirjaudu ensin sisään!")
+    
+    if not admin.check_role():
+        return render_template("error.html", message="Ei oikeuksia lisätä tuotetta!")
+    
+    title = request.form["title"]
+    description = request.form["description"]
+    price = request.form["price"]
+    date = request.form["date"]
+    time = request.form["time"]
+    
+    if admin.add_products(title, description, price, date, time):
+            return redirect("/admins")
+    else:
+        return render_template("error.html", message="Tuotteen lisääminen epäonnistui")
+
+# varauksen peruutus  
+@app.route("/cancel", methods=["POST"])
+def cancel_prod():
+    user_id = users.user_id()
+    prod_id = request.form.get("prod_id")
+    if not prod_id:
+        return render_template("error.html", message="Tuoteen ID puuttuuu")
+    if users.cancel(prod_id):
+        return redirect(f"/profile/{user_id}")
+    else:
+        render_template("error.html", message="Varauksen poistaminen epäonnistui")
+
+# uuden infon lisäys (admin)
+@app.route("/new/info")
+def new_info():
+    if "user_id" not in session:
+        return render_template("error.html", message="Kirjaudu ensin sisään!")
+    
+    if not admin.check_role():
+        return render_template("error.html", message="Ei oikeuksia nähdä sivua!")
+    
+    return render_template("info.html")
+
+# lisää info kenttään infoa (admin)
+@ app.route("/add/info", methods=["POST"])
+def add_info():
+    if "user_id" not in session:
+        return render_template("error.html", message="Kirjaudu ensin sisään!")
+    
+    if not admin.check_role():
+        return render_template("error.html", message="Ei oikeuksia lisätä infoa!")
+    
+    title = request.form["title"]
+    description = request.form["description"]
+
+    if admin.add_info(title, description):
+        return redirect("/admins")
+    else:
+        return render_template("error.html", message="Infon lisääminen epäonnistui")
+
+# infon poisto (admin)
+@app.route("/del/info", methods=["POST"])
+def del_info():
+    info_id = request.form.get("info_id")
+    if not info_id:
+        return render_template("error.html", message="Infon ID puuttuu")
+    if admin.delete_info(info_id):
+        return redirect("/admins")
+    else:
+        return render_template("error.html", message="Infon poistaminen epäonnistui")
+
+# tuotteen poisto (admin)
+@app.route("/del/product", methods=["POST"])
+def del_prod():
+    prod_id = request.form.get("prod_id")
+    if not prod_id:
+        return render_template("error.html", message="Tuotteen ID puuttuu")
+    if admin.del_products(prod_id):
+        return redirect("/admins")
+    else:
+        return render_template("error.html", message="Tuotteen poistaminen epäonnistui")
+
+# adminin poisto (admin)
+@app.route("/del/admin", methods=["POST"])
+def del_admin():
+    given_user = request.form.get("given_user")
+    if not given_user:
+        return render_template("error.html", message="Käyttäjä ID puuttuu")
+    if admin.del_admin(given_user):
+        return redirect("/admins")
+    else:
+        return render_template("error.html", message="Admin oikeuksien poistaminen epäonnistui")
+
+# palautteen poisto (admin)   
+@app.route("/del/review", methods=["POST"])
+def del_review():
+    review_id = request.form.get("review_id")
+    if not review_id:
+        return render_template("error.html", message="Palautteen ID puuttuu")
+    if admin.del_message(review_id):
+        return redirect("/admins")
+    else:
+        return render_template("error.html", message="Palautteen poistaminen epäonnistui")
